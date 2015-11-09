@@ -1,0 +1,1 @@
+puts gets.chomp[0...-1]+"5"
