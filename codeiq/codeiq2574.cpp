@@ -17,10 +17,10 @@ typedef map<pair<vector<int>, int>, int> mvi;
 #define INF 1 << 20
 
 void printtime() {
-	// struct timeval tp;
- //    gettimeofday(&tp, NULL);
- //    long long mslong = (long long) tp.tv_sec * 1000L + tp.tv_usec / 1000; //get current timestamp in milliseconds
- //    cout << mslong << endl;
+	struct timeval tp;
+    gettimeofday(&tp, NULL);
+    long long mslong = (long long) tp.tv_sec * 1000L + tp.tv_usec / 1000; //get current timestamp in milliseconds
+    cout << mslong << endl;
 }
 
 int dijkstra(vvii G, int N, int src, vi dest, vi* path) {
@@ -28,21 +28,22 @@ int dijkstra(vvii G, int N, int src, vi dest, vi* path) {
 	priority_queue<ii, vii, greater<ii> > Q;
 	D[src] = 0;
 	Q.push(ii(0, src));
-
+	int num = dest.size();
 	int found = 0;
+
 	while(!Q.empty()) {
 		ii top = Q.top();
 		Q.pop();
 		int d = top.first;
 		int v = top.second;
-		for (int i = 0; i < dest.size(); ++i) {
-			if (dest[i] == v && v != src) {
+		for (int i = 0; i < num; ++i) {
+			if (dest[i] == v && (*path)[i] == 0) {
 				(*path)[i] = d;
+				cout << "found " << src << " to " << v << " cost " << d << endl;
 				found++;
 			}
 		}
-		if(found == dest.size() - 1) return 0;
-		// if (v == dest) return d;
+		if(found == num) return 0;
 		if (d <= D[v]) {
 			for (std::vector<pair<int, int> >::iterator i = G[v].begin(); i != G[v].end(); ++i) {
 				int v2 = i->first;
@@ -136,13 +137,8 @@ int main(int argc, char const *argv[])
 			height.push_back(h - '0');
 		}
 	}
-	cout << maxH << endl;
-	for (int i = 0; i < size; ++i)
-	{
-		if (height[i] == maxH) {
-			maxVs.push_back(i);
-			cout << i << " : " << height[i] << endl;
-		}
+	for (int i = 0; i < size; ++i) {
+		if (height[i] == maxH) maxVs.push_back(i);
 	}
 
 	for (int i = 0; i < size; ++i)
@@ -190,11 +186,11 @@ int main(int argc, char const *argv[])
 	// 	cout << *i << endl;
 	// }
 
-	for (int i = 0; i < maxVs.size(); ++i) {
-		for (int j = 0; j < maxVs.size(); ++j) {
-			cout << i << " to " << j << " cost " << path[i][j] << endl;
-		}
-	}
+	// for (int i = 0; i < maxVs.size(); ++i) {
+	// 	for (int j = 0; j < maxVs.size(); ++j) {
+	// 		cout << i << " to " << j << " cost " << path[i][j] << endl;
+	// 	}
+	// }
 	printtime();
 	tsp(path, maxVs.size());
 	printtime();
