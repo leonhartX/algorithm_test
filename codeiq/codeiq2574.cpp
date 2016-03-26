@@ -39,7 +39,7 @@ int dijkstra(vvii G, int N, int src, vi dest, vi* path) {
 		for (int i = 0; i < num; ++i) {
 			if (dest[i] == v && (*path)[i] == 0) {
 				(*path)[i] = d;
-				cout << "found " << src << " to " << v << " cost " << d << endl;
+				// cout << "found " << src << " to " << v << " cost " << d << endl;
 				found++;
 			}
 		}
