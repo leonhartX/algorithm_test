@@ -1,0 +1,1 @@
+puts gets.chomp.squeeze.length - 1

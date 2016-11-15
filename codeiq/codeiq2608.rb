@@ -1,5 +1,5 @@
-@h = 7
-@w = 10
+@h = 10
+@w = 7
 @memo = {}
 @min_combo = nil
 
@@ -14,7 +14,7 @@ def solve(fixed, status)
 		fixed << [pos, pos + 1] #add to fixed pairs
 		status[pos] = status[pos + 1] = 1 #mark current pair as used
 		tmp_result = solve(fixed, status)
-		if tmp_result == 1 && (!@min_combo || fixed.size < @min_combo.size) #if remain space only have 1 pattern, save current fixed pairs
+		if tmp_result == 1 && (!@min_combo || fixed.size <= @min_combo.size) #if remain space only have 1 pattern, save current fixed pairs
 			@min_combo = fixed.dup
 		end
 		result += tmp_result
@@ -25,7 +25,7 @@ def solve(fixed, status)
 		fixed << [pos, pos + @w]
 		status[pos] = status[pos + @w] = 1
 		tmp_result = solve(fixed, status)
-		if tmp_result == 1 && (!@min_combo || fixed.size < @min_combo.size)
+		if tmp_result == 1 && (!@min_combo || fixed.size <= @min_combo.size)
 			@min_combo = fixed.dup
 		end
 		result += tmp_result
@@ -49,4 +49,4 @@ while try > 1 #when result is bigger than 1, disabled the last fixed pair
 	try = solve([], status)
 end
 p count
-# p process #disabled pair
+p process #disabled pair
