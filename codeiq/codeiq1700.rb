@@ -2,7 +2,7 @@
 @n = 22
 
 def solve(used, status)
-	# p "for used:#{used.to_s(2)}, status:#{status.to_s(2)}"
+	p "for used:#{used.to_s(2)}, status:#{status.to_s(2)}"
 	mem = @memo[(used << @n) | status]
 	return mem if mem
 	return 1 if used == @n / 2
